@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Your Cryptography Learning App : By Josh Casey</title>
+</head>
+<body>
+  <header>
+    <div class="banner">
+      <h2>CipherCraft Your Cryptography Learning App - By Josh Casey</h2>
+      <div class="navigation-buttons">
+        <button onclick="goToSignUp()">Sign Up</button>
+        <button onclick="goToLogin()">Login</button>
+        <div id="courseProfileButtons" style="display: none;">
+          <button onclick="goToCourseContent()">Course</button>
+          <button onclick="goToProfile()">Profile</button>
+          <button onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="brief-description">
+      <p></p>
+      <p></p>
+    </div>
+  </main>
+<footer>
+  <p> CipherCraft 2024</p>
+</footer>
+<script>
+  function logout() {
+    fetch('/logout', { method: 'POST' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Redirect to the login page or perform any other actions after logout
+          window.location.href = '/';  // Redirect to the unauthenticated home page
+        }
+      })
+      .catch(error => {
+        console.error('Error during logout:', error);
+      });
+  }
+  function toggleButtons() {
+    // Function to toggle between Sign Up/Login and Course/Profile buttons
+    var signUpButton = document.querySelector('button[onclick="goToSignUp()"]');
+    var loginButton = document.querySelector('button[onclick="goToLogin()"]');
+    var courseProfileButtons = document.getElementById('courseProfileButtons');
+    // Check the user's authentication status
+    fetch('/authStatus')
+      .then(response => response.json())
+      .then(data => {
+        if (data.authenticated) {
+          // User is authenticated, hide Sign Up and Login buttons, show Course and Profile buttons
+          signUpButton.style.display = 'none';
+          loginButton.style.display = 'none';
+          courseProfileButtons.style.display = 'block';
+        } else {
+          // User is not authenticated, show Sign Up and Login buttons, hide Course and Profile buttons
+          signUpButton.style.display = 'block';
+          loginButton.style.display = 'block';
+          courseProfileButtons.style.display = 'none';
+        }
+      })
+      .catch(error => {
+        console.error('Error checking authentication status:', error);
+      });
+  }
+  // Call toggleButtons on page load to set initial state
+  document.addEventListener("DOMContentLoaded", toggleButtons);
+  function goToSignUp() {
+    window.location.href = '/signUp'; // Replace with your actual URL
+  }
+  function goToLogin() {
+    window.location.href = '/login'; // Replace with your actual URL
+  }
+  function goToCourseContent() {
+    window.location.href = '/content'; // Replace with your actual URL
+  }
+  function goToProfile() {
+    window.location.href = '/profile'; // Replace with your actual URL
+  }
+  function goToJoinCourse() {
+    window.location.href = '/signUp'; // Replace with your actual URL
+  }
+</script>
+</body>
+
+</html>

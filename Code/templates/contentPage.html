@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Your Cryptography Learning App</title>
+</head>
+
+<body>
+  <header>
+    <div class="banner">
+      <h2>Content Page </h2>
+      <div class="navigation-buttons">
+        <nav>
+          <button onclick="goToHome()">Home</button>
+          <button onclick="goToProfile()">Profile</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" style="width: {{ progress }}%;" aria-valuenow="{{ progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+  </div>
+  <div style="clear:both;"></div>
+  <nav id="moduleList">
+    <table class="module-table">
+      <tr>
+        <th>Module List</th>
+      </tr>
+    <tr onclick="toggleModuleDropdown('module1')">
+      <td>Module 1: The Start of Cryptograph</td>
+    </tr>
+    <tr>  
+      <td id="module1Dropdown" class="module-dropdown">
+        <select onchange="updateSession('1', this.value)">
+          <option value="1">Where it all started</option>
+          <option value="2">Caesar Cipher</option>
+          <option value="3">Vigenere Cipher</option>
+          <option value="4">Rail Fence Cipher</option>
+        </select>
+        
+      </td>
+    </tr>
+    <tr onclick="toggleModuleDropdown('module2')">
+      <td>Module 2: Where it is now</td>
+    </tr>
+    <tr>
+      <td id="module2Dropdown" class="module-dropdown">
+        <select onchange="updateSession('2', this.value)">
+          <option value="1">Symmetrical and Asymmetrical</option>
+          <option value="2">Block Cipher and Stream Cipher</option>
+          <option value="3">One-Time Pad</option>
+          <option value="4">Diffie-Hellman Key Exchange Protocol</option> 
+        </select>
+      </td>
+    </tr>
+    <tr onclick="toggleModuleDropdown('module3')">
+      <td>Module 3: Advanced Encryption Standard (AES)</td>
+    </tr>
+    <tr>
+      <td id="module3Dropdown" class="module-dropdown">
+        <select onchange="updateSession('3', this.value)">
+          <option value="1">AES Operations and Process</option>
+          <option value="2">Electronic Codebook (ECB) Mode</option>
+          <option value="3">Cipher Block Chaining (CBC) Mode</option>
+          <option value="4">Counter (CTR) Mode</option> 
+        </select>
+      </td>
+    </tr>
+      <tr onclick="toggleModuleDropdown('module4')">
+      <td>Module 4: Hashing</td>
+    </tr>
+    <tr>
+      <td id="module4Dropdown" class="module-dropdown">
+        <select onchange="updateSession('4', this.value)">
+          <option value="1">What is a Hashing Algorithm</option>
+          <option value="2">Strength of hashing</option>
+          <option value="3">Different types</option>
+          <option value="4">When and where its used</option>
+        </select>
+      </td>
+    </tr>
+    <tr onclick="toggleModuleDropdown('module5')">
+      <td>Module 5: Key Management</td>
+    </tr>
+    <tr>
+      <td id="module5Dropdown" class="module-dropdown">
+        <select onchange="updateSession('5', this.value)">
+          <option value="1">Importance of Key Management</option>
+          <option value="2">Key Generation</option>
+          <option value="3">Key Storage</option>
+          <option value="4">Key Life cycle diagram</option>
+        </select>
+      </td>
+    </tr>
+    </table>
+  </nav>
+  <main>
+
+    <div id="content">
+      <h1 id="sectionTitle">{{ content_data.title }}</h1>
+      <p id="narrative">{{ content_data.narrative }}</p>
+      <div id="pageContent">{{ content_data.content }}</div>
+      <img id="sectionImage" src="" alt="Image">
+  </div>
+  
+  </main>
+
+  <footer class="navigation-arrows">
+    <form action="/prev_page" method="GET">
+        <button type="submit">◄ Prev</button>
+    </form>
+    <form action="/next_page" method="GET">
+        <button type="submit">Next ►</button>
+    </form>
+    {% if completed_module %}
+        <form action="/quiz" method="GET">
+            <button type="submit">Take Quiz</button>
+        </form>
+    {% endif %}
+</footer>
+
+
+
+
+<script>
+
+  function goToHome() {
+    window.location.href = '/';
+  }
+
+  function goToProfile(){
+    window.location.href= 'profile';
+  }
+
+  function loadModule(moduleId) {
+    // Hide all modules and dropdowns
+    var modules = document.querySelectorAll('.module-content');
+    modules.forEach(function(module) {
+      module.style.display = 'none';
+    });
+
+    var dropdowns = document.querySelectorAll('.module-dropdown');
+    dropdowns.forEach(function(dropdown) {
+      dropdown.style.display = 'none';
+    });
+
+    // Show the selected module
+    var selectedModule = document.getElementById(moduleId);
+    if (selectedModule) {
+      selectedModule.style.display = 'block';
+    }
+  }
+
+  function toggleModuleDropdown(moduleId) {
+    // Toggle the visibility of the dropdown for the selected module
+    var dropdown = document.getElementById(moduleId + 'Dropdown');
+    if (dropdown) {
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    }
+  }
+
+  function updateSession(moduleNum, topicNum) {
+    // Update session variables using AJAX or any other method
+    // Example using AJAX:
+    fetch(`/update_session/${moduleNum}/${topicNum}`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to update session variables');
+        }
+        // Redirect to the content page
+        window.location.href = '/content';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
+</body>
+</html>

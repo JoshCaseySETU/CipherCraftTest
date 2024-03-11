@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Quiz Results</title>
+</head>
+<body>
+    <header>
+        <h1>Quiz Results</h1>
+    </header>
+    <main>
+        <p>You scored {{ num_correct }} out of {{ total_questions }} ({{ score_percentage }}%)</p>
+        <form action="/retake_quiz" method="post">
+            <button type="submit">Retake Quiz</button>
+        </form>
+        <a href="/">Back to Home</a>
+    </main>
+    <footer>
+        &copy; 2024 Your CipherCraft | All rights reserved
+    </footer>
+</body>
+</html>

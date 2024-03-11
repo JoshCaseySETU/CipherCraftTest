@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Your Cryptography Learning App - Home</title>
+</head>
+<body>
+  <header>
+    <div class="banner">
+      <h2>Sign Up Page </h2>
+      <div class="navigation-buttons">
+        <nav>
+          <button onclick="goToHome()">Home</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+  <div class="signUp-form">
+      <h2>Sign Up</h2>
+      {% if error %}
+        <p style="color: red;">{{ error }}</p>
+      {% endif %}
+      <form id="signUpForm" method="Post">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+          <label for="confirmEmail">Confirm Email:</label>
+          <input type="email" id="confirmEmail" name="confirmEmail" required>
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required>
+          <label for="confirmPassword">Confirm Password:</label>
+          <input type="password" id="confirmPassword" name="confirmPassword" required>
+          <button type="submit">Login</button>
+      </form>
+  </div>
+  </main>
+</body>
+</html>

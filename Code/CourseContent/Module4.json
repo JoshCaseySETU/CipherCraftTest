@@ -1,0 +1,82 @@
+{
+  "modules": [
+    {
+      "id": "1",
+      "name": "Module 1: The Start of Cryptography",
+      "topics": [
+        {
+          "id": "1",
+          "title": "Topic 1: Why it began?",
+          "narrative": "The Enigmatic Origins",
+          "pages": [
+            { "id": "1", "content": "Topic 1 page 1" },
+            { "id": "2", "content": "Topic 1 Page 2" },
+            { "id": "3", "content": "Topci 1 Page 3" },
+            { "id": "4", "content": "topic 1 page 4." },
+            { "id": "5", "content": "page 5" },
+            { "id": "6", "content": "Introduce a character, a historical figure, who faced communication challenges." },
+            { "id": "7", "content": "Explain how the need for secrecy and secure communication arose." },
+            { "id": "8", "content": "Use visuals to depict historical contexts." },
+            { "id": "9", "content": "Additional content for page 4, if needed." },
+            { "id": "10", "content": "Additional content for page 5, if needed." }
+          ],
+          "visuals": "/Images/enigmatic_origins.png"
+        },
+        {
+          "id": "2",
+          "title": "Topic 2: Caesar Cipher",
+          "narrative": "Julius Caesar's Secret Code",
+          "pages": [
+            { "id": "1", "content": "Topic 2 page 1." },
+            { "id": "2", "content": "Topic 2 page 2." },
+            { "id": "3", "content": "Topic 2 page 3" },
+            { "id": "4", "content": "Additional content for page 4, if needed." },
+            { "id": "5", "content": "Additional content for page 5, if needed." },
+            { "id": "6", "content": "Introduce a character, a historical figure, who faced communication challenges." },
+            { "id": "7", "content": "Explain how the need for secrecy and secure communication arose." },
+            { "id": "8", "content": "Use visuals to depict historical contexts." },
+            { "id": "9", "content": "Additional content for page 4, if needed." },
+            { "id": "10", "content": "Additional content for page 5, if needed." }
+          ],
+          "visuals": "/Images/caesar_cipher.png"
+        },
+        {
+          "id": "3",
+          "title": "Topic 3: Vigenère Cipher",
+          "narrative": "The Unbreakable Cipher",
+          "pages": [
+            { "id": "1", "content": "Topic 3 page 1" },
+            { "id": "2", "content": "Topic 3 page 2." },
+            { "id": "3", "content": "Topic 3 page 3." },
+            { "id": "4", "content": "Additional content for page 4, if needed." },
+            { "id": "5", "content": "Additional content for page 5, if needed." },
+            { "id": "6", "content": "Introduce a character, a historical figure, who faced communication challenges." },
+            { "id": "7", "content": "Explain how the need for secrecy and secure communication arose." },
+            { "id": "8", "content": "Use visuals to depict historical contexts." },
+            { "id": "9", "content": "Additional content for page 4, if needed." },
+            { "id": "10", "content": "Additional content for page 5, if needed." }
+          ],
+          "visuals": "/Images/vigenere_cipher.png"
+        },
+        {
+          "id": "4",
+          "title": "Topic 4: Fence Cipher",
+          "narrative": "Greek Ingeniousness",
+          "pages": [
+            { "id": "1", "content": "Topic 4 page 1." },
+            { "id": "2", "content": "Topic 4 page 2." },
+            { "id": "3", "content": "Topic 4 page 3" },
+            { "id": "4", "content": "Additional content for page 4, if needed." },
+            { "id": "5", "content": "Additional content for page 5, if needed." },
+            { "id": "6", "content": "Introduce a character, a historical figure, who faced communication challenges." },
+            { "id": "7", "content": "Explain how the need for secrecy and secure communication arose." },
+            { "id": "8", "content": "Use visuals to depict historical contexts." },
+            { "id": "9", "content": "Additional content for page 4, if needed." },
+            { "id": "10", "content": "Additional content for page 5, if needed." }
+          ],
+          "visuals": "/Images/fence_cipher.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+Module 3: Advanced Encryption Standard (AES)
+Topic 1: AES Process
+    Story: "AES Ballet"
+        Depict the rounds of the AES process as a ballet.
+        Visuals: Illustrate each step in AES rounds.
+        Interactive: Users step through the AES process.
+Topic 2: Electronic Codebook (ECB) Mode
+    Story: "ECB's Weak Dance"
+        Highlight the weaknesses of ECB mode.
+        Visuals: Show the process and vulnerabilities.
+        Interactive: Users compare ECB and other modes.
+Topic 3: Cipher Block Chaining (CBC) Mode
+    Story: "Chaining for Security"
+        Explain how CBC mode overcomes ECB's issues.
+        Visuals: Illustrate block chaining.
+        Interactive: Users simulate CBC encryption.
+Topic 4: Counter (CTR) Mode
+    Story: "Counter-Attacking"
+        Explore the strengths and weaknesses of CTR mode.
+        Visuals: Illustrate the counter mode.
+        Interactive: Users experiment with counter-based encryption.
+Module 4: Hashing Algorithms
+Topic 1: What is a Hashing Algorithm
+    Story: "The Digital Fingerprint"
+        Describe hashing as creating a unique digital fingerprint.
+        Visuals: Show the hashing process.
+        Interactive: Users hash messages.
+Topic 2: Strength of Hashing
+    Story: "The Guardians: Preimage and Collision"
+        Personify preimage resistance and collision resistance as guardians.
+        Visuals: Illustrate concepts with guardians.
+        Interactive: Users understand the resistance.
+Topic 3: Different types
+    Story: "Hashing Family"
+        Introduce SHA1, MD5, SHA256 as members of the hashing family.
+        Visuals: Display differences between hashing algorithms.
+        Interactive: Users choose a hashing algorithm.
+Topic 4: When & where it’s used
+    Story: "Hashing in Everyday Life"
+        Explore where hashing is applied (e.g., passwords, files).
+        Visuals: Show real-world examples.
+        Interactive: Users identify use cases.
+Module 5: Key Management
+Topic 1: Importance of Key Management
+    Story: "The Key Custodians"
+        Emphasize the importance of key custody.
+        Visuals: Illustrate responsible key handling.
+        Interactive: Users learn key management principles.
+Topic 2: Key Generation
+    Story: "The Art of Randomness"
+        Discuss the need for random key generation.
+        Visuals: Show the art of generating random keys.
+        Interactive: Users generate random keys.
+Topic 3: Key Storage
+    Story: "The Key's Safe Haven"
+        Explain secure key storage practices.
+        Visuals: Showcase vaults, HSMs, and isolation.
+        Interactive: Users explore key storage methods.
+Topic 4: Key Life cycle diagram
+    Story: "Life and Death of a Key"
+        Walk through the life cycle stages from generation to destruction.
+        Visuals: Present a diagram of the key's life cycle.
+        Interactive: Users understand each stage's significance.

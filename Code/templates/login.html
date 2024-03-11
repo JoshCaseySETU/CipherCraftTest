@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/style.css">
+  <title>Your Cryptography Learning App - Login</title>
+  
+</head>
+<body>
+  <header>  
+    <div class="banner">
+      <h2>Login Page </h2>
+      <div class="navigation-buttons">
+        <nav>
+          <button onclick="goToHome()">Home</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="login-form">
+      <h2>Login</h2>
+      {% if error %}
+        <p style="color: red;">{{ error }}</p>
+      {% endif %}
+      <form id="loginForm" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p> CipherCraft 2024</p>
+  </footer>
+  </body>
+</html>
+<script>
+  function goToHome() {
+    window.location.href = '/';
+  }
+</script>
