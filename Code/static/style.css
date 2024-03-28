@@ -119,27 +119,88 @@ footer {
     background-color: #45a049;
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: center; /* Use flexbox to make the buttons display side by side */
+    align-items: center;
+}
+
 .arrow-button {
-    background-color: #4CAF50;
+    background-color: transparent;
     border: none;
     color: white;
-    padding: 10px;
     font-size: 18px;
     cursor: pointer;
+    margin: 0 5px; /* Add some margin to create space between the buttons */
+}
+
+.separator {
+    color: white;
+    font-size: 18px;
+    margin: 0 5px; /* Add margin to create space around the separator */
 }
 
 .arrow-button:hover {
     background-color: #45a049;
 }
 
-#content {
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center; 
-}
 
+#content {
+    margin-left: 350px; /* Adjust the margin-left to create space */
+    max-width: fit-content;
+    text-align: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #sectionTitle {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  #narrative {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  #pageContent {
+    margin-top: 45px;
+    font-size: 18px;
+    line-height: 1.6;
+  }
+  
+  #sectionImage {
+    max-width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+  
+  .audio-button-container {
+    margin-top: 20px;
+  }
+  
+  .audio-button-container button {
+    margin-right: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #45a049;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .audio-button-container button:hover {
+    background-color: #357934;
+  }
+  
 #moduleList {
-    margin-top: 50px;
+    float: left;
+    margin-top: 20px;
+    max-width: fit-content;
 }
   
 .module-table {
@@ -165,7 +226,7 @@ footer {
     border: 1px solid #45a049;
     border-radius: 5px; 
     padding: 10px;
-    width: 100%; 
+    width: min-content; 
     max-width: 200px; 
     margin-right: 20px;
     box-sizing: border-box; 
@@ -173,7 +234,7 @@ footer {
 
   
 .module-dropdown select {
-    width: 100%;
+    width: min-content;
     padding: 8px;
     border: none;
     border-radius: 3px;

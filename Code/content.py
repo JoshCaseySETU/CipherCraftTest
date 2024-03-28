@@ -13,10 +13,13 @@ def fetch_content(module_num, topic_num, page_num):
         print(f"File path: {file_path}")
         with open(file_path, "r") as file:
             data = json.load(file)
-            print(data)
-        
-        # Retrieve the content based on the specified module, topic, and page numbers
-        module = data["modules"][module_num - 1] 
+                    
+        # Adjust the index to be within the valid range
+        module_num = min(max(module_num, 1), len(data["modules"]) - 1)
+
+        # Retrieve the content based on the adjusted module number
+        module = data["modules"][module_num - 1]
+
         topic = module["topics"][topic_num - 1]   
         
         title = topic.get('title', 'Default Title')
@@ -24,12 +27,22 @@ def fetch_content(module_num, topic_num, page_num):
         
         page = topic["pages"][page_num - 1]  # Adjust index to 0-based
         
-        # Return the content
+        interactive_component = False
+        function_name = None
+        if 'interactive' in page and page['interactive']:
+            interactive_component = True
+            function_name = page.get('function_name', '')
+
+        # Return the content, interactive flag, and function name
         content = {
             'title': title,
             'narrative': narrative,
-            'content': page.get('content', 'Default Content')
+            'content': page.get('content', 'Default Content'),
+            'image': page.get('image'),
+            'interactive_component': interactive_component,
+            'function_name': function_name
         }
+
         print("Content retrieved successfully.")
         return content
         
@@ -47,17 +60,16 @@ def fetch_content(module_num, topic_num, page_num):
         return {"error": error_msg}
 
 
-result= fetch_content(1,1,1)
+result= fetch_content(2,1,1)
 print(result)
-result = fetch_content(2,1,1)
-print(result)
-result = fetch_content(3,1,1)
-print(result)
-result = fetch_content(4,1,1)
-print(result)
-result = fetch_content(5,1,1)
-print(result)
-
+#result = fetch_content(2,1,1)
+#print(result)
+#result = fetch_content(3,1,1)
+#print(result)
+#result = fetch_content(4,1,1)
+#print(result)
+#result = fetch_content(5,1,1)
+#print(result)
 
 def next_page_func(module_num, topic_num, page_num):
     # Load the JSON file corresponding to the module number
@@ -122,25 +134,43 @@ def prev_page_func(module_num, topic_num, page_num):
 
 
 def is_module_completed(module_num, topic_num, page_num):
-    # Load the JSON file corresponding to the module number
-    file_path = os.path.join("CourseContent", f"Module{module_num}.json")
-    with open(file_path, "r") as file:
-        data = json.load(file)
+    try:
+        # Load the JSON file corresponding to the module number
+        file_path = os.path.join("CourseContent", f"Module{module_num}.json")
+        with open(file_path, "r") as file:
+            data = json.load(file)
 
-    # Retrieve the number of topics and pages in the current module
-    num_topics = len(data["modules"][module_num - 1]["topics"])
-    last_topic_index = num_topics - 1
+        # Retrieve the number of topics in the current module
+        num_topics = len(data["modules"])
 
-    # Check if it's the last topic
-    if topic_num == num_topics:
-        # Retrieve the number of pages in the last topic
-        num_pages = len(data["modules"][module_num]["topics"][last_topic_index]["pages"])
+        # Check if the specified module number is within the valid range
+        if module_num < 1 or module_num > num_topics:
+            return False
 
-        # Check if it's the last page of the last topic
-        if page_num == num_pages:
-            return True
-    
-    return False
+        # Retrieve the number of topics in the specified module
+        num_topics = len(data["modules"][module_num - 1]["topics"])
+
+        # Check if the specified topic number is within the valid range
+        if topic_num < 1 or topic_num > num_topics:
+            return False
+
+        # Retrieve the number of pages in the specified topic
+        num_pages = len(data["modules"][module_num - 1]["topics"][topic_num - 1]["pages"])
+
+        # Check if the specified page number is within the valid range
+        if page_num < 1 or page_num > num_pages:
+            return False
+
+        # Check if it's the last page of the last topic in the module
+        return module_num == len(data["modules"]) and topic_num == num_topics and page_num == num_pages
+
+    except FileNotFoundError:
+        print("Error: Module not found.")
+        return False
+    except Exception as e:
+        print(f"Error: An error occurred: {e}")
+        return False
+
 
 def fetch_pages_topic(module_num, topic_num):
     try:
@@ -170,3 +200,82 @@ def fetch_pages_topic(module_num, topic_num):
         print(f"Error: An error occurred: {e}")
         return 0
 
+def fetch_content_backup(module_num, topic_num, page_num):
+    try:
+        print(f"Fetching content for: Module {module_num}, Topic {topic_num}, Page {page_num}")
+        # Define the path to the JSON files folder
+        folder_path = "CourseContent"
+        print(f"Folder path: {folder_path}")
+        
+
+        file_path = os.path.join(folder_path, f"Module{module_num}.json")
+        print(f"File path: {file_path}")
+        with open(file_path, "r") as file:
+            data = json.load(file)
+        
+
+        module = next((m for m in data["modules"] if m["id"] == str(module_num)), None)
+        if module is None:
+            raise ValueError(f"Module with id {module_num} not found")
+
+
+        topic = next((t for t in module["topics"] if t["id"] == str(topic_num)), None)
+        if topic is None:
+            raise ValueError(f"Topic with id {topic_num} not found")
+
+
+        page = next((p for p in topic["pages"] if p["id"] == str(page_num)), None)
+        if page is None:
+            raise ValueError(f"Page with id {page_num} not found")
+        
+        content = {
+            'title': topic['title'],
+            'narrative': topic['narrative'],
+            'content': page['content']
+        }
+        print("Content retrieved successfully.")
+        return content
+        
+    except FileNotFoundError:
+        print(f"Error: File {file_path} not found.")
+        return {"error": f"File {file_path} not found."}
+    except ValueError as e:
+        print(f"Error: {e}")
+        return {"error": str(e)}
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return {"error": str(e)}
+
+def fetch_module_content(module_num):
+    try:
+        # Define the path to the JSON files folder
+        folder_path = "CourseContent"
+        
+        # Load the JSON file corresponding to the module number
+        file_path = os.path.join(folder_path, f"Module{module_num}.json")
+        with open(file_path, "r") as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print("Error: Module not found.")
+        return None
+    except Exception as e:
+        print(f"Error: An error occurred: {e}")
+        return None
+
+def edit_module_content(module_num, new_content):
+    try:
+        # Define the path to the JSON files folder
+        folder_path = "CourseContent"
+        
+        # Load the JSON file corresponding to the module number
+        file_path = os.path.join(folder_path, f"Module{module_num}.json")
+        with open(file_path, "w") as file:
+            json.dump(new_content, file, indent=4)
+        return True
+    except FileNotFoundError:
+        print("Error: Module not found.")
+        return False
+    except Exception as e:
+        print(f"Error: An error occurred: {e}")
+        return False

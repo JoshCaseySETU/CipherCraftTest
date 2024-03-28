@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="https://code.responsivevoice.org/responsivevoice.js?key=tcikdKjS"></script>
+  <script>
+    // Populate the pageContent variable with the content_data.content from Jinja
+    var pageContent = "{{ content_data.content }}";
+  </script>  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/style.css">
-  <title>Your Cryptography Learning App</title>
+  <title>Your Cryptography Learning App</title> 
 </head>
 
 <body>
@@ -101,19 +106,71 @@
     <div id="content">
       <h1 id="sectionTitle">{{ content_data.title }}</h1>
       <p id="narrative">{{ content_data.narrative }}</p>
+      <div class="audio-button-container">
+        <button id="audioFemaleBtn" onclick="responsiveVoice.speak(pageContent, 'US English Female')">Audio Female</button>
+        <button id="audioMaleBtn" onclick="responsiveVoice.speak(pageContent, 'US English Male')">Audio Male</button>
+      </div>
       <div id="pageContent">{{ content_data.content }}</div>
-      <img id="sectionImage" src="" alt="Image">
+      {% if content_data.image != None%}
+        <img id="sectionImage" src="{{content_data.image}}" alt="Image">
+      {%endif%}
+
+{% if content_data.interactive_component %}
+<div>
+    <h2>Caesar Cipher Encryption</h2>
+    <label for="caesarMessage">Message:</label>
+    <input type="text" id="caesarMessage">
+    <label for="caesarShift">Shift Amount:</label>
+    <input type="number" id="caesarShift">
+    
+    <button onclick="handleEncryption()">Encrypt</button>
+    <p id="caesarEncrypted"></p>
+</div>
+
+<script src="static/Module1/interactive.js"></script>
+<script>
+    
+    if ("{{ content_data.function_name }}" in window) {
+        
+        window["{{ content_data.function_name }}"]();
+    } else {
+        console.error("Function name not found or not defined.");
+    }
+
+    // Function to handle encryption
+    function handleEncryption() {
+        // Retrieve the message and shift amount from the input fields
+        const messageElement = document.getElementById('caesarMessage');
+        const shiftAmountElement = document.getElementById('caesarShift');
+        
+        // Retrieve the message and shift amount
+        const message = messageElement.value;
+        const shiftAmount = parseInt(shiftAmountElement.value);
+        
+        // Call the encryption function with the retrieved values
+        const encryptedMessage = encryptCaesar(message, shiftAmount);
+        
+        // Display the encrypted message
+        document.getElementById('caesarEncrypted').textContent = encryptedMessage;
+    }
+</script>
+{% endif %}
+
+      
   </div>
   
   </main>
-
+  
   <footer class="navigation-arrows">
+    <div class="buttons-container">
     <form action="/prev_page" method="GET">
-        <button type="submit">◄ Prev</button>
+        <button class="arrow-button" type="submit">◄ Prev </button>
     </form>
+    <span class="separator">|</span>
     <form action="/next_page" method="GET">
-        <button type="submit">Next ►</button>
+        <button class="arrow-button" type="submit">Next ►</button>
     </form>
+    <div>
     {% if completed_module %}
         <form action="/quiz" method="GET">
             <button type="submit">Take Quiz</button>

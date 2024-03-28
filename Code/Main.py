@@ -2,9 +2,10 @@ import os
 from flask import Flask, session, redirect, url_for, render_template, request, jsonify, make_response
 from flask_bcrypt import Bcrypt
 from auth import signUp, Login 
-from content import fetch_content, next_page_func, prev_page_func, is_module_completed, fetch_pages_topic
-from quiz import questions, get_selected_option, store_selected_option, generate_new_quiz_data
+from content import fetch_content, next_page_func, prev_page_func, is_module_completed, fetch_module_content, edit_module_content
+from quiz import questions, get_selected_option, store_selected_option, generate_new_quiz_data, add_question, edit_question,delete_question, filter_questions_by_module
 from progress import store_session_in_database, fetch_user_progress
+import json
     
 app = Flask(__name__)
 app.secret_key = os.environ.get('sessionKey')
@@ -60,20 +61,7 @@ def content():
     module_num = session['module_num']
     topic_num = session['topic_num']
     page_num = session['page_num']
-    
-    print("Session variables in content route:", module_num, topic_num, page_num)
-    
-    total_pages = fetch_pages_topic(module_num, topic_num)
-    if total_pages == 0:
-        return "Error: Total pages is zero"
-    
-    content_progress = (page_num / total_pages) * 100
-    
-    if content_progress == 100 and session['topic_num'] >= 4:
-        session['topic_num'] += 1
-        session['page_num'] = 1
-
-    
+    print(module_num, topic_num, page_num)
     content_data = fetch_content(module_num, topic_num, page_num)
     completed_module = is_module_completed(module_num, topic_num, page_num)
 
@@ -127,7 +115,6 @@ def authStatus():
 @app.route('/logout', methods=['POST'])
 def logout():
 
-    store_session_in_database() 
     session.clear()
     return jsonify({'success': True})
 
@@ -205,11 +192,53 @@ def results():
 @app.route('/retake_quiz', methods=['POST', 'GET'])
 def retake_quiz():
     if 'in_quiz' in session and session['in_quiz']:
-        session.pop('quiz_data', None)  # Clear the quiz data session variable
-        session.pop('selected_options', None)  # Clear selected options session variable
-        session.pop('correct_answers', None)  # Clear correct answers session variable
-        session['in_quiz'] = False  # Set in_quiz session variable to False to indicate quiz is not in progress
+        session.pop('quiz_data', None)  
+        session.pop('selected_options', None)  
+        session.pop('correct_answers', None)  
+        session['in_quiz'] = False  
     return redirect(url_for('default_quiz'))
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    if request.method == 'POST':
+        # Handle form submission here (update_questions)
+        for key in request.form:
+            if key.startswith('question_text_'):
+                index = key.split('_')[-1]
+                # Get the corresponding updated values from the form
+                question_text = request.form['question_text_' + index]
+                option1 = request.form['option1_' + index]
+                option2 = request.form['option2_' + index]
+                option3 = request.form['option3_' + index]
+                option4 = request.form['option4_' + index]
+                correct_option = request.form['correct_option_' + index]
+                # Call the edit_question function to update the question in the database
+                edit_question(request.form['module_number'], question_text, [option1, option2, option3, option4], correct_option)
+        # Handle adding new question here
+        if 'new_question_text' in request.form:
+            module_number = request.form['module_number']
+            question_text = request.form['new_question_text']
+            options = [
+                request.form['new_option1'],
+                request.form['new_option2'],
+                request.form['new_option3'],
+                request.form['new_option4']
+            ]
+            correct_option = request.form['new_correct_option']
+            add_question(module_number, question_text, options, correct_option)
+            return redirect(url_for('admin'))
+    # Fetch questions based on the selected module number
+    module_number = request.args.get('module_number', '1')  # Default to module 1 if not specified
+    questions = filter_questions_by_module(module_number)  # Implement this function to fetch questions by module from the database
+    return render_template('admin.html', questions=questions, module_number=module_number)
+
+@app.route('/delete_question', methods=['POST'])
+def delete_question_route():
+    module_number = request.form['module_number']
+    question_text = request.form['question_text']
+    # Call the delete_question function passing the module_number and question_text
+    delete_question(module_number, question_text)
+    return redirect(url_for('admin'))
 
 @app.after_request
 def add_cache_control(response):
@@ -218,6 +247,7 @@ def add_cache_control(response):
         response.headers["Pragma"] = "no-cache"
         response.headers["Expires"] = "0"
     return response
+
 
 if __name__ == "__main__":
     app.run()

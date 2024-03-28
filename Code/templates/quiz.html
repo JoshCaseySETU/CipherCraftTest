@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .option.selected {
+            background-color: #4CAF50; /* Default background color when selected */
+        }
+        .option {
+            cursor: pointer; /* Add pointer cursor to indicate clickable */
+            transition: background-color 0.3s ease; /* Smooth transition effect */
+        }
+        .option:hover {
+            background-color: #45a049; /* Change background color on hover */
+        }
+    </style>
+    
     <title>Quiz</title>
 </head>
 <body>
@@ -25,7 +38,7 @@
                     <div class="option {% if selected_option == 'Option3' %}selected{% endif %}" data-value="Option 3">{{ current_question['Option3'] }}</div>
                     <div class="option {% if selected_option == 'Option4' %}selected{% endif %}" data-value="Option 4">{{ current_question['Option4'] }}</div>
                 </div>
-                <button type="submit">Submit</button>
+                
             </form> 
           
         </div>
