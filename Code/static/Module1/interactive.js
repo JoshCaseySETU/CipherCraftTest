@@ -1,62 +1,19 @@
-function encryptHieroglyphic(message) {
-    // Create a mapping of characters to hieroglyphic symbols
-    const hieroglyphicMapping = {
-        'A': '𓃀',
-        'B': '𓂋',
-        'C': '𓅱',
-        'D': '𓀀',
-        'E': '𓀭',
-        'F': '𓀾',
-        'G': '𓁹',
-        'H': '𓆱',
-        'I': '𓍯',
-        'J': '𓃾',
-        'K': '𓆛',
-        'L': '𓂧',
-        'M': '𓇌',
-        'N': '𓆑',
-        'O': '𓁨',
-        'P': '𓈖',
-        'Q': '𓄿',
-        'R': '𓅓',
-        'S': '𓂋',
-        'T': '𓏏',
-        'U': '𓃭',
-        'V': '𓀓',
-        'W': '𓀭𓁷',
-        'X': '𓏭',
-        'Y': '𓀠',
-        'Z': '𓆱',
-        ' ': ' ',
-    };
+function encryptCaesar(message, shiftAmount) {
+    // Parse shiftAmount as an integer
+    shiftAmount = parseInt(shiftAmount);
 
-    // Convert the message to uppercase for simplicity
-    message = message.toUpperCase();
-
-    // Initialize an empty string to store the encrypted message
-    let encryptedMessage = '';
-
-    // Iterate through each character in the message
-    for (let i = 0; i < message.length; i++) {
-        const char = message[i];
-        
-        // Check if the character exists in the mapping
-        if (hieroglyphicMapping.hasOwnProperty(char)) {
-            // If yes, append the corresponding hieroglyphic symbol to the encrypted message
-            encryptedMessage += hieroglyphicMapping[char];
-        } else {
-            // If not, keep the character unchanged
-            encryptedMessage += char;
-        }
+    // Check if shiftAmount is a valid number
+    if (isNaN(shiftAmount)) {
+        // If shiftAmount is not a valid number, return an error message
+        return 'Error: Shift amount must be a valid number.';
     }
 
-    // Return the encrypted message
-    return encryptedMessage;
-}
+    // Check if message is a string
+    if (typeof message !== 'string') {
+        // If message is not a string, return an error message
+        return 'Error: Message must be a string.';
+    }
 
-
-// Define functions for Caesar cipher encryption and decryption
-function encryptCaesar(message, shiftAmount) {
     // Convert the message to uppercase for simplicity
     message = message.toUpperCase();
     
@@ -87,6 +44,8 @@ function encryptCaesar(message, shiftAmount) {
     return encryptedMessage;
 }
 
+
+
 function decryptCaesar(encryptedMessage, shiftAmount) {
     // Decrypting a Caesar cipher is essentially encrypting with a negative shift
     return encryptCaesar(encryptedMessage, -shiftAmount);
@@ -96,6 +55,9 @@ function decryptCaesar(encryptedMessage, shiftAmount) {
 function frequencyAnalysis(encryptedMessage) {
     // Convert the message to uppercase for simplicity
     encryptedMessage = encryptedMessage.toUpperCase();
+    
+    // Initialize a string to store the frequency information
+    let frequencyString = '';
     
     // Initialize an object to store the frequency of each letter
     const frequency = {};
@@ -111,13 +73,32 @@ function frequencyAnalysis(encryptedMessage) {
         }
     }
     
-    // Return the frequency object
-    return frequency;
+    // Convert the frequency object to a string
+    for (const letter in frequency) {
+        frequencyString += `${letter}: ${frequency[letter]}, `;
+    }
+    
+    // Remove the trailing comma and space
+    frequencyString = frequencyString.slice(0, -2);
+    
+    // Return the frequency information as a string
+    return frequencyString;
 }
 
 // Define functions for Vigenère cipher encryption and decryption
 function encryptVigenere(message, key) {
     // Convert the message and key to uppercase for simplicity
+    if (message === undefined || message === null || key === undefined || key === null) {
+        console.error('Error: Message or key is undefined or null.');
+        return null; // Return null to indicate an error
+    }
+    
+    // Check if message and key are strings
+    if (typeof message !== 'string' || typeof key !== 'string') {
+        console.error('Error: Message or key is not a string.');
+        return null; // Return null to indicate an error
+    }
+
     message = message.toUpperCase();
     key = key.toUpperCase();
     
@@ -198,23 +179,33 @@ function decryptVigenere(encryptedMessage, key) {
 }
 
 function encryptFence(message, numRails) {
-    let rail = new Array(numRails).fill().map(() => new Array(message.length).fill('\n'));
-    let dir_down = false;
+    let rail = new Array(numRails).fill().map(() => []);
+
+    let dirDown = false;
     let row = 0, col = 0;
-   
+
     for (let i = 0; i < message.length; i++) {
-      if (row == 0 || row == numRails - 1) dir_down = !dir_down;
-      rail[row][col++] = message[i];
-      dir_down ? row++ : row--;
+        if (row === 0 || row === numRails - 1) dirDown = !dirDown;
+        
+        // Ensure that rail[row] is properly initialized
+        if (!rail[row]) {
+            rail[row] = [];
+        }
+        
+        rail[row][col] = message[i];
+        col++;
+
+        // Adjust row based on direction
+        row += dirDown ? 1 : -1;
     }
-   
-    let result = '';
-    for (let i = 0; i < numRails; i++)
-      for (let j = 0; j < message.length; j++)
-        if (rail[i][j] != '\n') result += rail[i][j];
-   
+
+    // Concatenate rows to form the encrypted message
+    let result = rail.flat().join('');
+
     return result;
 }
+
+
 
 function decryptFence(encryptedMessage, numRails) {
     let rail = new Array(numRails).fill().map(() => new Array(encryptedMessage.length).fill('\n'));

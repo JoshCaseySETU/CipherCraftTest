@@ -1,82 +1,293 @@
 {
-  "modules": [
-    {
-      "id": 1,
-      "name": "Module 1: The Start of Cryptography",
-      "topics": [
+    "modules": [
         {
-          "id": 1,
-          "title": "Topic 1: Why it began?",
-          "narrative": "The Enigmatic Origins",
-          "pages": [
-            { "id": 1, "content": "In ancient civilizations, such as ancient Egypt and Mesopotamia, rulers and officials faced a common problem: how to securely transmit sensitive information over long distances. Pharaoh Ramses II, facing threats from rival kingdoms, ponders, How can we ensure our messages remain secret from our enemies?" },
-            { "id": 2, "content": "An advisor named Thoth, renowned for his wisdom, proposes the use of hieroglyphic inscriptions on clay tablets, which could be sealed in containers and delivered by trusted messengers. He explains that these inscriptions would be difficult for adversaries to decipher without knowledge of the hieroglyphic script." },
-            { "id": 3, "content": "The use of hieroglyphic writing allowed ancient civilizations to encode messages using symbols and images, providing a form of cryptographic security. By arranging the symbols in a specific order or using special symbols to represent certain words or phrases, the intended meaning of the message could be concealed from unauthorized readers." },
-            { "id": 4, "content": "Video link further explaing the technquie" },
-            { "id": 5, "content": "Interactive section maybe..." },
-            { "id": 6, "content": "While hieroglyphic writing provided a degree of security, it was not foolproof. Adversaries could still attempt to decipher the meaning of the symbols through trial and error or by analyzing patterns in the inscriptions. However, for ancient civilizations, this method offered a practical solution for securing sensitive communications." },
-            { "id": 7, "content": "Deciphering hieroglyphic inscriptions required knowledge of the hieroglyphic script and an understanding of the context in which the symbols were used. Adversaries could attempt to decipher the symbols by comparing them to known hieroglyphic texts or by identifying recurring patterns that might indicate common words or phrases" },
-            { "id": 8, "content": "visuals of decrpyting" },
-            { "id": 9, "content": "interactive decryption" },
-            { "id": 10, "content": "As civilizations advanced and interactions between cultures increased, the need for stronger encryption methods became apparent. The limitations of hieroglyphic writing underscored the importance of developing more sophisticated cryptographic techniques that could withstand increasingly sophisticated attacks on secure communication." }
-          ],
-          "visuals": "/Images/enigmatic_origins.png"
-        },
-        {
-          "id": 2,
-          "title": "Topic 2: Caesar Cipher",
-          "narrative": "Julius Caesar's Secret Code",
-          "pages": [
-            { "id": 1, "content": "In ancient Rome, Julius Caesar, a renowned military leader and statesman, faces the challenge of ensuring secure communication among his armies scattered across the vast Roman Empire", "image": "static/Images/Rome.jpg" },
-            { "id": 2, "content": "Recognizing the importance of secrecy in military operations, Caesar instructs his trusted advisors to devise a method for encoding messages that only those with the key could decipher.", "image": "static/Images/Meeting.jpg" },
-            { "id": 3, "content": "The Caesar Cipher, named after Julius Caesar, is a simple substitution cipher where each letter in the plaintext is shifted a certain number of places down or up the alphabet. For example, with a shift of 3, A becomes D, B becomes E, and so on.", "image": "static/Images/TheShift.jpg" },
-            { "id": 4, "content": "The illustration depicts the alphabet with a shift of three positions. To understand the encryption process better, lets consider the example of encrypting the plaintext Hello World. First, we locate each letter in the plaintext and shift it accordingly: H shifts to K, E becomes H, L becomes O, and so forth. After completing this substitution for each letter, the resulting ciphertext is KHOOR ZRUOG", "image": "static/Images/TheShift.jpg" },
-            { "id": 5, "content": "", "interactive": true, "function_name": "encryptCaesar" },
-            { "id": 6, "content": "Video explaining it in more detail" },
-            { "id": 7, "content": "Despite its simplicity, the Caesar Cipher is vulnerable to frequency analysis, a technique where the frequency of letters in the ciphertext is analyzed to deduce the shift value and decrypt the message." },
-            { "id": 8, "content": "Interactive component for decrypting" },
-            { "id": 9, "content": "further visuals on decrpyting" },
-            { "id": 10, "content": " The limitations of the Caesar Cipher highlight the need for stronger encryption methods that can withstand sophisticated attacks. As communication technology advances, so too must encryption techniques to ensure the security of sensitive information." }
-          ],
-          "visuals": "/Images/caesar_cipher.png"
-        },
-        {
-          "id": 3,
-          "title": "Topic 3: Vigenere Cipher",
-          "narrative": "The Unbreakable Cipher",
-          "pages": [
-            { "id": 1, "content": "The Vigenère Cipher is renowned as one of the strongest encryption methods of its time, offering enhanced security compared to simpler substitution ciphers like the Caesar Cipher." },
-            { "id": 2, "content": " The Vigenère Cipher operates by using a keyword or phrase to create a repeating key pattern. Each letter of the plaintext is shifted according to the corresponding letter in the key, creating a layered shifted alphabet that obscures the original message." },
-            { "id": 3, "content": "A key, typically a word or phrase chosen by the sender and recipient, is essential for encrypting and decrypting messages with the Vigenère Cipher. The key determines the shifting pattern used to encode and decode the message." },
-            { "id": 4, "content": "Visuals showing how it works." },
-            { "id": 5, "content": "Video detailing how it operates" },
-            { "id": 6, "content": "Interactive component ensuring users know how it works" },
-            { "id": 7, "content": "Unlike simpler ciphers, such as the Caesar Cipher, the Vigenère Cipher presents significant challenges for cryptanalysts. Its use of a repeating key pattern makes frequency analysis less effective, and the complexity of the shifting pattern makes brute-force attacks impractical for longer messages." },
-            { "id": 8, "content": "Visuals for decrypting" },
-            { "id": 9, "content": "The Vigenère Cipher, invented by the 16th-century French cryptographer Blaise de Vigenère, gained widespread use due to its resistance to frequency analysis, a common method of breaking simple substitution ciphers. It operates by using a keyword to determine the shifting pattern for each letter in the plaintext. Despite its strength, the Vigenère Cipher is not immune to cryptanalysis. Early attempts to break the cipher led to the development of frequency-based attacks, such as the Kasiski examination, which exploits repetitions in the ciphertext to deduce the length of the keyword. However, with longer keywords and proper key management, the Vigenère Cipher remained a formidable encryption method for centuries." },
-            { "id": 10, "content": "For those interested in exploring the Vigenère Cipher further, it's worth noting that the invention of the Vigenère Cipher marked a significant advancement in cryptography during the Renaissance period. Its polyalphabetic nature, where each letter in the plaintext can be shifted by different amounts depending on the corresponding letter in the key, foreshadowed more sophisticated encryption techniques to come. Modern variants and adaptations of the Vigenère Cipher, such as the autokey cipher and the Gronsfeld cipher, continue to be studied and used in cryptographic applications today. Additionally, understanding the vulnerabilities and strengths of the Vigenère Cipher provides valuable insight into the evolution of cryptographic techniques and the ongoing quest for secure communication methods." }
-          ],
-          "visuals": "/Images/vigenere_cipher.png"
-        },
-        {
-          "id": 4,
-          "title": "Topic 4: Fence Cipher",
-          "narrative": "Greek Ingeniousness",
-          "pages": [
-            { "id": 1, "content": "The Fence Cipher, also known as the Rail Fence Cipher, has ancient origins and belongs to the class of transposition ciphers. Unlike substitution ciphers like the Caesar and Vigenère ciphers, which replace plaintext characters with ciphertext characters, the Fence Cipher reorders the plaintext characters according to a specific pattern." },
-            { "id": 2, "content": "The Fence Cipher differs from the Caesar and Vigenère ciphers in its method of encryption. Rather than shifting or substituting characters, the Fence Cipher rearranges the characters of the plaintext according to a predetermined pattern, often involving writing the characters in a zigzag pattern across multiple lines." },
-            { "id": 3, "content": "The Fence Cipher operates by writing the plaintext characters in a zigzag pattern across a specified number of lines, then reading the characters off each line sequentially to generate the ciphertext. The number of lines and the direction of the zigzag pattern are determined by the key used for encryption." },
-            { "id": 4, "content": "visual displaying how it works" },
-            { "id": 5, "content": "video showing how it operates" },
-            { "id": 6, "content": "interactive components" },
-            { "id": 7, "content": " Decrypting the Fence Cipher involves reconstructing the original plaintext from the ciphertext by reversing the encryption process. This typically requires knowledge of the key used for encryption and the pattern used to rearrange the characters." },
-            { "id": 8, "content": "Visuals for decrypting" },
-            { "id": 9, "content": "The Fence Cipher is a simple yet effective encryption technique that was historically used for military communications and espionage. While it offers a degree of security against casual eavesdropping, it is vulnerable to cryptanalysis methods such as frequency analysis and pattern recognition." },
-            { "id": 10, "content": "For further exploration, it's worth noting that variations of the Fence Cipher exist, including methods that incorporate additional layers of encryption or alternate patterns for rearranging the plaintext characters. Additionally, studying the Fence Cipher provides insight into the ingenuity of ancient cryptographic techniques and their role in shaping the history of secret communication." }
-          ],
-          "visuals": "/Images/fence_cipher.png"
+            "id": 1,
+            "name": "Module 1: The Start of Cryptography",
+            "topics": [
+                {
+                    "id": 1,
+                    "title": "Topic 1: Introduction to Cryptography",
+                    "narrative": "Exploring the Basics of Cryptography",
+                    "pages": [
+                        {
+                            "id": 1,
+                            "content": "Welcome to Topic 1: Introduction to Cryptography! In this topic, we'll delve into the fundamental concepts and terminology of cryptography, the art of secure communication.",
+                            "image": "static/Images/IntroImage.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "content": "Cryptography is the practice of encrypting and decrypting messages to ensure confidentiality and integrity. At its core, cryptography involves transforming plaintext (original message) into ciphertext (encrypted message) using cryptographic algorithms and keys.",
+                            "image": "static/Images/Process.png"
+                        },
+                        {
+                            "id": 3,
+                            "content": "Let's break down some key terminology: \n\n- Plaintext: The original, unencrypted message that is readable and understandable. \n\n- Ciphertext: The encrypted form of the plaintext, which appears as gibberish without the proper decryption key. \n\n- Encryption: The process of converting plaintext into ciphertext using an encryption algorithm and a key. \n\n- Decryption: The reverse process of encryption, converting ciphertext back into plaintext using a decryption algorithm and the corresponding key.",
+                            "image": "static/Images/Sample.jpg"
+                        },
+                        {
+                            "id": 4,
+                            "content": "Central to cryptography are cryptographic keys. These keys are used to encrypt and decrypt messages, and they come in two main types: \n\n- Symmetric Key: Also known as secret key cryptography, uses a single key for both encryption and decryption. Examples include AES (Advanced Encryption Standard) and DES (Data Encryption Standard). \n\n- Asymmetric Key: Also known as public-key cryptography, uses a pair of keys - a public key for encryption and a private key for decryption. Examples include RSA (Rivest-Shamir-Adleman) and ECC (Elliptic Curve Cryptography).",
+                            "image": "static/Images/Sym-Asym.png"
+                        },
+                        {
+                            "id": 5,
+                            "content": "Understanding these basic concepts lays the foundation for exploring the fascinating world of cryptography. Join us as we delve deeper into encryption techniques, security protocols, and real-world applications in subsequent topics!"
+                        },
+                        {
+                            "id": 6,
+                            "content": "In addition to confidentiality, cryptography also provides other essential security services such as integrity and authentication. Integrity ensures that the message has not been altered during transmission, while authentication verifies the identity of the sender or recipient.",
+                            "image": "static/Images/CIA.jpg"
+                        },
+                        {
+                            "id": 7,
+                            "content": "Cryptographic algorithms play a crucial role in the encryption and decryption process. These algorithms determine how the plaintext is transformed into ciphertext and vice versa. Some common cryptographic algorithms include: \n\n- AES (Advanced Encryption Standard): A widely used symmetric encryption algorithm known for its security and efficiency. \n\n- RSA (Rivest-Shamir-Adleman): A popular asymmetric encryption algorithm used for secure data transmission and digital signatures. \n\n- SHA (Secure Hash Algorithm): A family of cryptographic hash functions used to generate unique fixed-size hash values from input data."
+                        },
+                        {
+                            "id": 8,
+                            "content": "As technology evolves, so do the challenges and threats to secure communication. Cryptography continues to adapt and innovate to counter emerging threats such as quantum computing and sophisticated cyber attacks. Research and development in cryptography play a vital role in staying ahead of these challenges.",
+                            "image": "static/Images/Threat.jpg"
+                        },
+                        {
+                            "id": 9,
+                            "content": "Beyond its traditional use in securing communication, cryptography has found applications in various fields including finance, healthcare, and digital rights management. From securing online transactions to protecting sensitive medical records, cryptography plays a crucial role in safeguarding sensitive information in the digital age.",
+                            "image": "static/Images/Crypto-Real-World.jpg"
+                        },
+                        {
+                            "id": 10,
+                            "content": "In conclusion, cryptography serves as the cornerstone of modern cybersecurity, providing the tools and techniques necessary to secure communication and protect sensitive information. By understanding the basics of cryptography, you'll be equipped to explore advanced topics and contribute to the ongoing evolution of cybersecurity.",
+                            "image": "static/Images/Topic1Page10.jpg"
+                        }
+                    ],
+                    "visuals": "/Images/enigmatic_origins.png"
+                },
+                {
+                    "id": 2,
+                    "title": "Topic 2: Caesar Cipher",
+                    "narrative": "The Quest for Secrecy",
+                    "pages": [
+                      {
+                        "id": 1,
+                        "content": "Transport yourself back to ancient Rome, a time of grandeur and intrigue, where Julius Caesar, the illustrious military leader and astute statesman, grappled with the monumental task of ensuring confidential communication across the vast expanse of the Roman Empire. Amidst the tumult of conquests and political machinations, Caesar recognized the critical importance of secrecy in maintaining the upper hand in warfare and governance alike.",
+                        "image": "static/Images/RomeCiv.jpg"
+                      },
+                      {
+                        "id": 2,
+                        "content": "With the weight of history on his shoulders, Caesar entrusted his most trusted advisors with the mission of devising a method to encode messages that could be deciphered only by those in possession of the secret key. Thus, the seeds of the Caesar Cipher were sown, marking the genesis of one of history's most enduring cryptographic techniques.",
+                        "image": "static/Images/MeetingRome.jpg"
+                      },
+                      {
+                        "id": 3,
+                        "content": "Enter the realm of the Caesar Cipher, a masterpiece of simplicity and effectiveness. At its core, this cryptographic marvel operates on a straightforward principle: each letter in the plaintext is shifted a certain number of positions up or down the alphabet. This shift, known as the 'key' or 'shift value,' serves as the linchpin of the encryption process.",
+                        "image": "static/Images/TheShift.jpg"
+                      },
+                      {
+                        "id": 4,
+                        "content": "Let's embark on a journey through the encryption process. Imagine you wish to dispatch a message, 'Attack At Dawn,' using a Caesar Cipher with a shift of 2. As you apply the prescribed shift to each letter in the plaintext, a mesmerizing transformation unfolds: 'A' becomes 'C,' 'T' becomes 'V,' 'C' becomes 'E,' and so forth. Behold the birth of your ciphertext: 'CVVCEMCVFCYP.'",
+                        "image": "static/Images/CaesarCipherHowTo.jpg"
+                      },
+                      {
+                        "id": 5,
+                        "content": "Interactive Component: Try encrypting your own message using the Caesar Cipher with different shift values.",
+                        "interactive": true,
+                        "function_name": "encryptCaesar",
+                        "interactive_component": {
+                          "title": "Caesar Cipher Encryption",
+                          "input_fields": [
+                            {
+                              "label": "Message",
+                              "type": "text",
+                              "id": "caesarMessage"
+                            },
+                            {
+                              "label": "Shift Amount",
+                              "type": "number",
+                              "id": "caesarShift"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": 6,
+                        "content": "Video Explanation: Watch a detailed video explaining the Caesar Cipher and its encryption process.",
+                        "video_url": "https://www.youtube.com/embed/UkTHgQ_qwJk"
+                      },
+                      {
+                        "id": 7,
+                        "content": "Yet, behind its cloak of simplicity, the Caesar Cipher harbors vulnerabilities. Enter frequency analysis, a cunning technique that exploits patterns in letter frequencies to unveil the shift value and unravel the encrypted message, thereby exposing the cipher's Achilles' heel.",
+                        "image": "static/Images/Freq.png"
+                      },
+                      {
+                        "id": 8,
+                        "content": "Interactive Component: Try decrypting ciphertext encrypted with the Caesar Cipher using frequency analysis, here are a few examples to try 'YMNX NX F XJHWJY RJXXFLJ', 'KPK FVB MPNBYL PA VBA', 'FTUE UE AGD XUFFXQ EQODQF PAZF FQXX MZKAZQ QXEQ'",
+                        "interactive": true,
+                        "function_name": "frequencyAnalysis",
+                        "interactive_component": {
+                          "title": "Frequency Analysis",
+                          "input_fields": [
+                            {
+                              "label": "Encrypted Message",
+                              "type": "text",
+                              "id": "encryptedMessage"
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "id": 9,
+                        "content": "As we reflect on the saga of the Caesar Cipher, let us draw inspiration from the ingenuity of Julius Caesar and the timeless quest for secure communication. In an era defined by rapid technological advancement, may we continue to innovate and fortify our defenses against the ever-present specter of information security threats.",
+                        "image": ""
+                      }
+                    ],
+                    "visuals": "/Images/caesar_cipher.png"
+                  },
+                {
+                    "id": 3,
+                    "title": "Topic 3: Vigenere Cipher",
+                    "narrative": "The Unbreakable Cipher",
+                    "pages": [
+                        {
+                            "id": 1,
+                            "content": "The Vigenere Cipher, devised by Blaise de Vigenere in the 16th century, represents a significant advancement in cryptography. Unlike its predecessors, such as the Caesar Cipher, the Vigenere Cipher introduces a polyalphabetic substitution method, enhancing security and complexity.",
+                            "image": "static/Images/Vigenere.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "content": "The concept of polyalphabetic substitution revolutionizes encryption by using multiple alphabets. In contrast to monoalphabetic ciphers, where each letter is consistently substituted with another, polyalphabetic ciphers like the Vigenere Cipher employ different substitution patterns based on a keyword, making it more resilient against frequency analysis.",
+                            "image": "static/Images/Mono-V-Poly.png"
+                        },
+                        {
+                            "id": 3,
+                            "content": "To encrypt a message using the Vigenere Cipher, a keyword is chosen, and the plaintext is shifted according to the corresponding letters in the keyword. This process creates ciphertext, where each letter is substituted based on the shifting pattern determined by the keyword.",
+                            "image": "static/Images/VigenereEnc.jpg"
+                        },
+                        {
+                            "id": 4,
+                            "content": "Decrypting a message encrypted with the Vigenere Cipher requires knowledge of the keyword used for encryption. By reversing the encryption process, the original plaintext is revealed, restoring the message to its original form.",
+                            "image": "static/Images/VigDec.png"
+                        },
+                        {
+                            "id": 5,
+                            "content": "Despite its complexity, the Vigenere Cipher is not immune to cryptanalysis. Vulnerabilities such as the Kasiski examination, which exploits repetitions in the ciphertext to deduce the length of the keyword, pose challenges to its security. Additionally, shorter or predictable keywords can make the cipher susceptible to brute-force attacks.",
+                            "image": "static/Images/Kasiski.png"
+                        },
+                        {
+                            "id": 6,
+                            "content": "The invention of the Vigenere Cipher marked a significant milestone in the history of cryptography, paving the way for more sophisticated encryption techniques. Its polyalphabetic nature and resistance to frequency analysis contributed to its widespread use and continued study in modern cryptography.",
+                            "image": "static/Images/Timeline.png"
+                        },
+                        {
+                            "id": 7,
+                            "content": "Despite centuries of existence, the Vigenere Cipher remains relevant in modern cryptography. Variants such as the autokey cipher and the Gronsfeld cipher continue to be studied and utilized in cryptographic applications, highlighting the enduring legacy of Blaise de Vigenere's invention.",
+                            "image": "static/Images/Tools.jpg"
+                        },
+                        {
+                            "id": 8,
+                            "content": "Video Explanation: Watch a detailed video explaining the Vigenere Cipher and its encryption process.",
+                            "video_url": "https://www.youtube.com/embed/Jo-EJOYMIbA"
+                        },
+                        {
+                            "id": 9,
+                            "content": "Interactive Component: Try encrypting your own message using the Vigenere Cipher with different key values.",
+                            "interactive": true,
+                            "function_name": "encryptVigenere",
+                            "interactive_component": {
+                                "title": "Vigenere Cipher Encryption",
+                                "input_fields": [
+                                  {
+                                    "label": "Message",
+                                    "type": "text",
+                                    "id": "message"
+                                  },
+                                  {
+                                    "label": "key",
+                                    "type": "text",
+                                    "id": "key"
+                                  }
+                                ]
+                              }
+                        },
+                        {
+                            "id": 10,
+                            "content": "In conclusion, the Vigenere Cipher remains a testament to the ingenuity and innovation of early cryptographers. Its polyalphabetic nature and historical significance continue to inspire further exploration and study in the field of cryptography. Understanding the intricacies of the Vigenere Cipher provides valuable insights into the evolution of encryption techniques and the ongoing quest for secure communication methods.",
+                            "image": ""
+                        }
+                    ],
+                    "visuals": "/Images/vigenere_cipher.png"
+                },
+                {
+                    "id": 4,
+                    "title": "Topic 4: Fence Cipher",
+                    "narrative": "Greek Ingeniousness",
+                    "pages": [
+                        {
+                            "id": 1,
+                            "content": "The Fence Cipher, also known as the Rail Fence Cipher, is a classical transposition cipher dating back to ancient times. Its roots can be traced to the ancient Greeks, who were known for their contributions to mathematics and cryptography. The name 'Rail Fence' originates from the visual resemblance of the encryption process to the pattern of a fence. This cipher falls under the category of transposition ciphers, which involve rearranging the order of characters in the plaintext without altering their identities. Unlike substitution ciphers, which replace each character with another, transposition ciphers like the Fence Cipher operate by changing the sequence of characters.",
+                            "image": "static/Images/Greek-Crypto.jpg"
+                        },
+                        {
+                            "id": 2,
+                            "content": "The encryption process in the Fence Cipher involves writing the plaintext diagonally across a series of 'rails' or lines, forming a distinctive zigzag pattern. The number of rails used corresponds to the encryption key provided. Each character of the plaintext is then placed sequentially along this pattern. Once all characters are placed, they are read off in a specific order to generate the ciphertext. This process ensures that the original message is obscured and can only be deciphered by someone with knowledge of the key and encryption method.",
+                            "image": "static/Images/RailFence.png"
+                        },
+                        {
+                            "id": 3,
+                            "content": "Let's walk through a detailed example of encrypting a message using the Fence Cipher. Consider the plaintext message 'HELLO WORLD' and a key of 3. First, we lay out the characters diagonally across 3 rails:\n\n```\nH . . . O . . . R\n. E . L . O . L .\n. . L . . . W . .D\n```\n\nNext, we read off the characters from each rail sequentially: 'Horel ollWd'. This resulting string is the ciphertext, which represents the encrypted form of the original message.",
+                            "image": "static/Images/RailFence.png"
+                        },
+                        {
+                            "id": 4,
+                            "content": "Decrypting the Fence Cipher involves reversing the encryption process to reveal the original plaintext. This requires knowledge of the key used for encryption and the pattern employed. The ciphertext is arranged in the same zigzag pattern as the encryption process, and characters are read off from each rail to reconstruct the original message. The decryption process effectively 'undoes' the encryption, restoring the plaintext to its original form.",
+                            "image": "static/Images/RailFence.png"
+                        },
+                        {
+                            "id": 5,
+                            "content": "Continuing with our previous example, let's decrypt the ciphertext 'Horel ollWd' using the key of 3. First, we reconstruct the zigzag pattern across 3 rails:\n\n```\nH . . . O . . . R\n. E . L . O . L .\n. . L . . . W . .D\n```\n\nThen, we read off the characters diagonally to reveal the original plaintext: 'HELLO WORLD'. This demonstrates how the decryption process reverses the encryption, returning the message to its original state.",
+                            "image": "static/Images/RailFence.png"
+                        },
+                        {
+                            "id": 6,
+                            "content": "While the Fence Cipher offers some level of security, it is susceptible to certain cryptanalysis techniques. Since the characters are simply rearranged without any alteration, certain patterns may still be discernible, especially in longer messages. One vulnerability is frequency analysis, where the frequency of characters in the ciphertext is analyzed to deduce the underlying plaintext. Another vulnerability is pattern recognition, where recurring patterns in the ciphertext may reveal information about the encryption method and key. Despite its historical use, the Fence Cipher is not recommended for secure communications in modern contexts due to these vulnerabilities.",
+                            "image": "static/Images/RailFreq.png"
+                        },
+                        {
+                            "id": 7,
+                            "content": "The Fence Cipher has a rich history and has been used in various historical contexts. During ancient times, it was employed by military and diplomatic figures to protect sensitive information from adversaries. The simplicity of the encryption method made it accessible and practical for communication in environments where secure channels were limited. Despite its eventual obsolescence as cryptographic techniques evolved, the Fence Cipher remains an important milestone in the development of encryption methods and cryptography as a whole.",
+                            "image": "static/Images/History.png"
+                        },
+                        {
+                            "id": 8,
+                            "content": "Over time, variations and extensions of the Fence Cipher have been developed to address its limitations and enhance security. Some variations incorporate additional layers of encryption or alter the zigzag pattern to make cryptanalysis more difficult. Others introduce multiple keys or employ mathematical operations to obscure the relationship between the plaintext and ciphertext. These variations demonstrate the adaptability of the Fence Cipher and its enduring relevance in the field of cryptography."
+                        },
+                        {
+                            "id": 9,
+                            "content": "Interactive Component: Try encrypting your own message using the Rail Fence Cipher with different shift values.",
+                            "interactive": true,
+                            "function_name": "encryptFence",
+                            "interactive_component": {
+                              "title": "Rail Fence Cipher Encryption",
+                              "input_fields": [
+                                {
+                                  "label": "Message",
+                                  "type": "text",
+                                  "id": "fenceMessage"
+                                },
+                                {
+                                  "label": "Shift Amount",
+                                  "type": "number",
+                                  "id": "numRails"
+                                }
+                              ]
+                            }
+                        },
+                        {
+                            "id": 10,
+                            "content": "Video Explanation: Watch a detailed video explaining the Rail Fence Cipher and its encryption process.",
+                            "video_url": "https://www.youtube.com/embed/VRiN9M0v3ZQ"
+                        }
+                    ],
+                    "visuals": "/Images/fence_cipher.png"
+                }
+            ]
         }
-      ]
-    }
-  ]
+    ]
 }

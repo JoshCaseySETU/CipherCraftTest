@@ -21,9 +21,13 @@ def questions(module_number):
         correct_answers.append(correct_answer)  # Store correct answer
         quiz_data.append(question_data)
         
-        random.shuffle(quiz_data)
-        
-    session['correct_answers'] = correct_answers  # Store correct answers in session
+    # Shuffle both quiz data and correct answers simultaneously
+    combined_data = list(zip(quiz_data, correct_answers))
+    random.shuffle(combined_data)
+    quiz_data, correct_answers = zip(*combined_data)
+    
+    # Store correct answers in session
+    session[f'correct_answers_{module_number}'] = correct_answers
     
     return quiz_data
 

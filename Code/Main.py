@@ -2,7 +2,7 @@ import os
 from flask import Flask, session, redirect, url_for, render_template, request, jsonify, make_response
 from flask_bcrypt import Bcrypt
 from auth import signUp, Login 
-from content import fetch_content, next_page_func, prev_page_func, is_module_completed, fetch_module_content, edit_module_content
+from content import fetch_content, next_page_func, prev_page_func, is_module_completed, fetch_module_content, update_page_content
 from quiz import questions, get_selected_option, store_selected_option, generate_new_quiz_data, add_question, edit_question,delete_question, filter_questions_by_module
 from progress import store_session_in_database, fetch_user_progress
 import json
@@ -167,36 +167,63 @@ def default_quiz():
 
 @app.route('/results')
 def results():
-    
     session.pop('in_quiz', None)
     
-    session['quiz_data'] = generate_new_quiz_data()
-    # Retrieve the selected options and correct answers from the session
+    # Retrieve the module number from the session
+    module_number = session.get('module_num')
+    
+    # Retrieve the selected options and correct answers for the specific module from the session
     selected_options = session.get('selected_options', {})
-    correct_answers = session.get('correct_answers', [])  # Retrieve correct answers from session
+    correct_answers = session.get(f'correct_answers_{module_number}', [])
+    print(correct_answers)
+    
+    num_correct = 0
+    for index, selected_option in selected_options.items():
+        try:
+            correct_answer_index = int(index) - 1
+            if correct_answer_index >= 0 and correct_answer_index < len(correct_answers):
+                if selected_option == correct_answers[correct_answer_index]:
+                    num_correct += 1
+        except IndexError:
+            print("IndexError occurred for index:", index)
 
-    print("Selected options:", selected_options)
-    print("Correct answers:", correct_answers)
-
-    # Calculate the user's score
-    num_correct = sum(1 for index, selected_option in selected_options.items() if selected_option == correct_answers[int(index) - 1])
-
-    # Get the total number of questions
+# Calculate the percentage score
     total_questions = len(correct_answers)
-
-    # Calculate the percentage score
     score_percentage = (num_correct / total_questions) * 100 if total_questions > 0 else 0
 
     return render_template("results.html", num_correct=num_correct, total_questions=total_questions, score_percentage=score_percentage)
 
 @app.route('/retake_quiz', methods=['POST', 'GET'])
 def retake_quiz():
-    if 'in_quiz' in session and session['in_quiz']:
+    print("Retaking quiz...")
+    if 'in_quiz' in session:
+        # Print session data before clearing
+        print("Session data before clearing:", session)
+        
+        # Clear all quiz-related session data
         session.pop('quiz_data', None)  
         session.pop('selected_options', None)  
         session.pop('correct_answers', None)  
-        session['in_quiz'] = False  
+        session.pop('in_quiz', None)  
+
+        # Generate new quiz data and set it in the session
+        session['in_quiz'] = True
+        session['quiz_data'] = generate_new_quiz_data()
+        print("New quiz data:", session['quiz_data'])
+
+        # Print session data after clearing
+        print("Session data after clearing:", session)
+
+    # Redirect to the quiz route to start the quiz again
     return redirect(url_for('default_quiz'))
+
+@app.after_request
+def add_cache_control(response):
+    if session.get('in_quiz'):
+        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+        response.headers["Pragma"] = "no-cache"
+        response.headers["Expires"] = "0"
+    return response
 
 @app.route('/admin', methods=['POST', 'GET'])
 def admin():
@@ -240,14 +267,28 @@ def delete_question_route():
     delete_question(module_number, question_text)
     return redirect(url_for('admin'))
 
-@app.after_request
-def add_cache_control(response):
-    if session.get('in_quiz'):
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-        response.headers["Pragma"] = "no-cache"
-        response.headers["Expires"] = "0"
-    return response
+@app.route('/fetch_module', methods=['POST', 'GET'])
+def fetch_module():
+    module_num = request.form['module_number']
+    content = fetch_module_content(module_num)
+    print("FLASK CONTENT =", content)
+    if content:
+        return render_template('admin.html', content=content)
+    else:
+        return "Error: Module not found."
 
+# New route to update page content
+@app.route('/update_page', methods=['POST'])
+def update_page():
+    module_num = request.form['module_number']
+    topic_id = request.form['topic_id']
+    page_id = request.form['page_id']
+    new_content = request.form['new_content']
+    success = update_page_content(module_num, topic_id, page_id, new_content)
+    if success:
+        return redirect(url_for('admin'))
+    else:
+        return "Error: Failed to update page content."
 
 if __name__ == "__main__":
     app.run()

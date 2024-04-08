@@ -27,11 +27,22 @@ def fetch_content(module_num, topic_num, page_num):
         
         page = topic["pages"][page_num - 1]  # Adjust index to 0-based
         
+        
         interactive_component = False
         function_name = None
         if 'interactive' in page and page['interactive']:
             interactive_component = True
             function_name = page.get('function_name', '')
+            interactive_component = page.get('interactive_component')
+        if interactive_component:
+            title = interactive_component.get('title', 'Default Title')
+            input_fields = interactive_component.get('input_fields', [])
+
+            # Now you can access individual input fields within the input_fields array
+            for input_field in input_fields:
+                label = input_field.get('label')
+                input_type = input_field.get('type')
+                field_id = input_field.get('id')
 
         # Return the content, interactive flag, and function name
         content = {
@@ -40,7 +51,8 @@ def fetch_content(module_num, topic_num, page_num):
             'content': page.get('content', 'Default Content'),
             'image': page.get('image'),
             'interactive_component': interactive_component,
-            'function_name': function_name
+            'function_name': function_name,
+            'video_url': page.get('video_url')
         }
 
         print("Content retrieved successfully.")
@@ -255,7 +267,16 @@ def fetch_module_content(module_num):
         file_path = os.path.join(folder_path, f"Module{module_num}.json")
         with open(file_path, "r") as file:
             data = json.load(file)
-        return data
+        
+        # Extract content information from all topics and pages
+        content_info = {}
+        for module in data['modules']:
+            for topic in module['topics']:
+                for page in topic['pages']:
+                    content_info.setdefault(topic['title'], []).append(page['content'])
+                    
+        print("ContentINFO = ", content_info)
+        return content_info
     except FileNotFoundError:
         print("Error: Module not found.")
         return None
@@ -263,19 +284,41 @@ def fetch_module_content(module_num):
         print(f"Error: An error occurred: {e}")
         return None
 
-def edit_module_content(module_num, new_content):
+
+def update_page_content(module_num, topic_id, page_id, new_content):
     try:
-        # Define the path to the JSON files folder
-        folder_path = "CourseContent"
+        # Fetch the existing content
+        module_content = fetch_module_content(module_num)
+        if not module_content:
+            return False
         
-        # Load the JSON file corresponding to the module number
+        # Find the module, topic, and page by their IDs
+        module_found = False
+        for module in module_content["modules"]:
+            if module["id"] == module_num:
+                for topic in module["topics"]:
+                    if topic["id"] == topic_id:
+                        for page in topic["pages"]:
+                            if page["id"] == page_id:
+                                page["content"] = new_content
+                                module_found = True
+                                break
+                        break
+                break
+        
+        if not module_found:
+            print("Error: Module, topic, or page not found.")
+            return False
+        
+        # Update the JSON file with the modified content
+        folder_path = "CourseContent"
         file_path = os.path.join(folder_path, f"Module{module_num}.json")
         with open(file_path, "w") as file:
-            json.dump(new_content, file, indent=4)
+            json.dump(module_content, file, indent=4)
+        
         return True
-    except FileNotFoundError:
-        print("Error: Module not found.")
-        return False
     except Exception as e:
         print(f"Error: An error occurred: {e}")
         return False
+
+
